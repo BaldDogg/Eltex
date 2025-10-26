@@ -1,0 +1,151 @@
+git config --global user.name "BaldDogg"
+git config --global user.email "Prudnikova.9@bk.ru"
+git config --global init.defaultBranch main
+apt update
+Hit:1 http://ru.archive.ubuntu.com/ubuntu noble InRelease
+Get:2 http://ru.archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB] 
+Hit:3 http://security.ubuntu.com/ubuntu noble-security InRelease                     
+Get:4 http://ru.archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+Get:5 http://ru.archive.ubuntu.com/ubuntu noble-updates/main amd64 Components [175 kB]
+Get:6 http://ru.archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Components [212 B]
+Get:7 http://ru.archive.ubuntu.com/ubuntu noble-updates/universe amd64 Components [377 kB]
+Get:8 http://ru.archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Components [940 B]
+Get:9 http://ru.archive.ubuntu.com/ubuntu noble-backports/main amd64 Components [7,160 B]
+Get:10 http://ru.archive.ubuntu.com/ubuntu noble-backports/restricted amd64 Components [212 B]
+Get:11 http://ru.archive.ubuntu.com/ubuntu noble-backports/universe amd64 Components [11.0 kB]
+Get:12 http://ru.archive.ubuntu.com/ubuntu noble-backports/multiverse amd64 Components [212 B]
+Fetched 824 kB in 1s (1,026 kB/s)                       
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+80 packages can be upgraded. Run 'apt list --upgradable' to see them.
+apt install git gh
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+git is already the newest version (1:2.43.0-1ubuntu7.3).
+git set to manually installed.
+The following NEW packages will be installed:
+  gh
+0 upgraded, 1 newly installed, 0 to remove and 80 not upgraded.
+Need to get 8,836 kB of archives.
+After this operation, 45.4 MB of additional disk space will be used.
+Do you want to continue? [Y/n] Y
+Get:1 http://ru.archive.ubuntu.com/ubuntu noble-updates/universe amd64 gh amd64 2.45.0-1ubuntu0.3 [8,836 kB]
+Fetched 8,836 kB in 1s (10.8 MB/s)
+Selecting previously unselected package gh.
+(Reading database ... 124948 files and directories currently installed.)
+Preparing to unpack .../gh_2.45.0-1ubuntu0.3_amd64.deb ...
+Unpacking gh (2.45.0-1ubuntu0.3) ..................................................] 
+Setting up gh (2.45.0-1ubuntu0.3) ...#######.......................................] 
+Processing triggers for man-db (2.12.0-4build2) ...###################.............] 
+Scanning processes...                                                                  
+Scanning candidates...                                                                 
+Scanning linux images...                                                               
+
+Pending kernel upgrade!
+Running kernel version:
+  6.8.0-55-generic
+Diagnostics:
+  The currently running kernel version is not the expected kernel version
+6.8.0-86-generic.
+
+Restarting the system to load the new kernel will not be handled automatically, so you
+should consider rebooting.
+
+Restarting services...
+
+Service restarts being deferred:
+ /etc/needrestart/restart.d/dbus.service
+ systemctl restart getty@tty1.service
+ systemctl restart systemd-logind.service
+ systemctl restart unattended-upgrades.service
+
+No containers need to be restarted.
+
+No user sessions are running outdated binaries.
+
+No VM guests are running outdated hypervisor (qemu) binaries on this host.
+ssh-keygen -t ed25519 -f ~/.ssh/BaldDogg
+Generating public/private ed25519 key pair.
+Enter passphrase (empty for no passphrase): 
+Enter same passphrase again: 
+Your identification has been saved in /root/.ssh/BaldDogg
+Your public key has been saved in /root/.ssh/BaldDogg.pub
+The key fingerprint is:
+SHA256:d20TsfMDQMTAkGSx3SKxn6XoldIk/SbkykAkRaiFnek root@eltex-practice2-pg2-v11
+The key's randomart image is:
++--[ED25519 256]--+
+|  o.*+.*=.=+  .  |
+| . *o ..*....  o |
+|  +  . = * o .+  |
+| . E.   X B  ..+ |
+|     . oSX.o. +..|
+|      + +.o. . ..|
+|       +         |
+|                 |
+|                 |
++----[SHA256]-----+
+gh auth login
+? What account do you want to log into? GitHub.com
+? What is your preferred protocol for Git operations on this host? SSH
+? Upload your SSH public key to your GitHub account? /root/.ssh/BaldDogg.pub
+? Title for your SSH key: eltex-practice2-pg2-v11
+? How would you like to authenticate GitHub CLI? Login with a web browser
+
+! First copy your one-time code: 0130-094E
+Press Enter to open github.com in your browser...
+! Failed opening a web browser at https://github.com/login/device
+  exec: "xdg-open,x-www-browser,www-browser,wslview": executable file not found in $PATH
+  Please try entering the URL in your browser manually
+
+✓ Authentication complete.
+- gh config set -h github.com git_protocol ssh
+✓ Configured git protocol
+! Authentication credentials saved in plain text
+✓ Uploaded the SSH key to your GitHub account: /root/.ssh/BaldDogg.pub
+✓ Logged in as BaldDogg
+gh auth setup-git --hostname github.com
+gh auth status
+github.com
+  ✓ Logged in to github.com account BaldDogg (/root/.config/gh/hosts.yml)
+  - Active account: true
+  - Git operations protocol: ssh
+  - Token: gho_************************************
+  - Token scopes: 'admin:public_key', 'gist', 'read:org', 'repo'
+gh repo create --public eltex
+GraphQL: Name already exists on this account (createRepository)
+mkdir ~/eltex && cd ~/eltex
+~/eltex# echo "# практические задания по курсу Eltex" >> README.md
+~/eltex# git init
+Initialized empty Git repository in /root/eltex/.git/
+~/eltex# git commit -m "first commit"
+[main (root-commit) 7e8d733] first commit
+ 1 file changed, 1 insertion(+)
+ create mode 100644 README.md
+~/eltex# git branch -M main
+~/eltex# git remote add origin https://github.com/BaldDogg/eltex.git
+~/eltex# git status
+On branch main
+nothing to commit, working tree clean
+~/eltex# git push -u origin main
+Enumerating objects: 3, done.
+Counting objects: 100% (3/3), done.
+Delta compression using up to 2 threads
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 274 bytes | 274.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+remote: This repository moved. Please use the new location:
+remote:   https://github.com/BaldDogg/Eltex.git
+To https://github.com/BaldDogg/eltex.git
+ * [new branch]      main -> main
+branch 'main' set up to track 'origin/main'.
+~/eltex# mkdir -p module1/task1
+~/eltex# mkdir module1/task2
+~/eltex# mkdir module1/task3
+~/eltex# git add .
+~/eltex# git status
+On branch main
+Your branch is up to date with 'origin/main'.
+~/eltex# git push
+Everything up-to-date

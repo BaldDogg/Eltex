@@ -1,1 +1,591 @@
+ssh-keygen
+Enter file in which to save the key (/home/eltex-pg2-v11/.ssh/id_rsa):
+Enter passphrase (empty for no passphrase): 
+Enter same passphrase again: 
+Your identification has been saved in /home/eltex-pg2-v11/.ssh/id_rsa
+Your public key has been saved in /home/eltex-pg2-v11/.ssh/id_rsa.pub
+The key fingerprint is:
+SHA256:r+C4vXLiIKU0CaAplHKQH70cJ/7bn3/zcpSzX7EuETE eltex-pg2-v11@eltex-2025-autumn
+The key's randomart image is:
++---[RSA 3072]----+
+|o+..             |
+|*oo + .      E   |
+|*o + =        o  |
+|o o +        .   |
+| +.  .  S     ...|
+|.o.   .  .   . o+|
+|o .   .o  .   .o+|
+| . .o+o... . .=.o|
+|   .+=+...o....*+|
++----[SHA256]-----+
+ssh-copy-id root@172.16.9.211
+/usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "/home/eltex-pg2-v11/.ssh/id_rsa.pub"
+/usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
+/usr/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
+root@172.16.9.211's password: 
 
+Number of key(s) added: 1
+
+Now try logging into the machine, with:   "ssh 'root@172.16.9.211'"
+and check to make sure that only the key(s) you wanted were added.
+
+ssh 'root@172.16.9.211'
+root@eltex-practice2-pg2-v11:~# cat ~/.ssh/authorized_keys
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCzCfQkNMWCnaFJQ+Is88kRA8+Rbsdd8Ht5yX8YAo5HXemNtX+yVUJIO5MQ1MuMhfGvTJBjr/y1t/Nyf1NuTt3ntUePI19N/tJc5NSOAgDsI9okX/YaimXZ6MrvYyyU8cZsIItAG/PzIgb7TEyIQY15QZ4KO3KrvBTx5OMdfliykk4Oc3e6+nl0c+22rtX0htIqt0QKiI+wVnU1K+xLyvcgkerjqRB+JYo01iSGqxe72N61MRc5xhlAod6BXsar/PPghcuaqDCXhAIEKEHmJ+O+1PjgxpXwvUTi9ZE4ZCIK7sWXLJNNYezcH/FHAM0frJfeNXgtpI9XFp8YmGLZO1LChjh407frPVR3CY/LNmOhK0ZGrNunoevMbLbpjKHILwgvzCtw68hQpeZF6QBA3cU2vJt+moIBWDvv02jZvZxaN/WTTtxlY7UN5otThyDHluI1DUvuqH1GxgrlozA/ODHKKtbfH5x8DKSHsSOP/Kjgwj7MqVrr7llRCKuKpKVMTKk= eltex-pg2-v11@eltex-2025-autumn
+eltex-pg2-v11@217.71.138.1:44556:~$ cat /home/eltex-pg2-v11/.ssh/*.pub
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCzCfQkNMWCnaFJQ+Is88kRA8+Rbsdd8Ht5yX8YAo5HXemNtX+yVUJIO5MQ1MuMhfGvTJBjr/y1t/Nyf1NuTt3ntUePI19N/tJc5NSOAgDsI9okX/YaimXZ6MrvYyyU8cZsIItAG/PzIgb7TEyIQY15QZ4KO3KrvBTx5OMdfliykk4Oc3e6+nl0c+22rtX0htIqt0QKiI+wVnU1K+xLyvcgkerjqRB+JYo01iSGqxe72N61MRc5xhlAod6BXsar/PPghcuaqDCXhAIEKEHmJ+O+1PjgxpXwvUTi9ZE4ZCIK7sWXLJNNYezcH/FHAM0frJfeNXgtpI9XFp8YmGLZO1LChjh407frPVR3CY/LNmOhK0ZGrNunoevMbLbpjKHILwgvzCtw68hQpeZF6QBA3cU2vJt+moIBWDvv02jZvZxaN/WTTtxlY7UN5otThyDHluI1DUvuqH1GxgrlozA/ODHKKtbfH5x8DKSHsSOP/Kjgwj7MqVrr7llRCKuKpKVMTKk= eltex-pg2-v11@eltex-2025-autumn
+root@eltex-practice2-pg2-v11:~# useradd -m -s /bin/bash user1
+root@eltex-practice2-pg2-v11:~# passwd user1
+New password: 
+Retype new password: 
+passwd: password updated successfully
+useradd user2
+useradd user3
+usermod user3 -s /usr/sbin/nologin
+su user3
+This account is currently not available.
+su -s /bin/bash user3
+user3@eltex-practice2-pg2-v11:/root$ 
+user3@eltex-practice2-pg2-v11:/root$ exit
+exit
+groupadd grp
+usermod -aG grp user1
+usermod -aG grp user2
+usermod -aG grp user3
+groups user1 user2 user3
+user1 : user1 grp
+user2 : user2 grp
+user3 : user3 users grp
+mkdir /opt/share
+chown :grp /opt/share
+ls -l /opt
+total 4
+drwxrws--T 2 root grp 4096 Oct 17 02:16 share
+chmod 2770 /opt/share
+echo "umask 027" >> /home/user1/.bashrc
+su user1
+user1@eltex-practice2-pg2-v11:/root$ touch /opt/share/user1.txt
+user1@eltex-practice2-pg2-v11:/root$ exit
+exit
+su user2
+$ touch /opt/share/user2.txt            
+$ rm /opt/share/user1.txt
+rm: remove write-protected regular empty file '/opt/share/user1.txt'? 
+Y                   
+$ exit
+su -s /bin/bash user3
+user3@eltex-practice2-pg2-v11:/root$ touch /opt/share/user3.txt
+user3@eltex-practice2-pg2-v11:/root$ rm /opt/share/user2.txt
+user3@eltex-practice2-pg2-v11:/root$ exit
+exit
+ls /opt/share
+user3.txt
+su user1
+user1@eltex-practice2-pg2-v11:/root$ rm /opt/share/user3.txt
+user1@eltex-practice2-pg2-v11:/root$ ls /opt/share
+user1@eltex-practice2-pg2-v11:/root$ exit
+exit
+chmod +t /opt/share
+su user1
+user1@eltex-practice2-pg2-v11:/root$ 
+user1@eltex-practice2-pg2-v11:/root$ touch /opt/share/user1.txt
+user1@eltex-practice2-pg2-v11:/root$ exit
+exit
+su user2
+$ touch /opt/share/user2.txt
+$ rm /opt/share/user1.txt
+rm: remove write-protected regular empty file '/opt/share/user1.txt'? Y
+rm: cannot remove '/opt/share/user1.txt': Operation not permitted
+$ exit
+su -s /bin/bash user3
+user3@eltex-practice2-pg2-v11:/root$ touch /opt/share/user3.txt
+user3@eltex-practice2-pg2-v11:/root$ rm /opt/share/user2.txt
+rm: cannot remove '/opt/share/user2.txt': Operation not permitted
+user3@eltex-practice2-pg2-v11:/root$ rm /opt/share/user1.txt
+rm: remove write-protected regular empty file '/opt/share/user1.txt'? Y
+rm: cannot remove '/opt/share/user1.txt': Operation not permitted
+user3@eltex-practice2-pg2-v11:/root$ exit
+exit
+su user1
+user1@eltex-practice2-pg2-v11:/root$ rm /opt/share/user1.txt
+user1@eltex-practice2-pg2-v11:/root$ ls /opt/share
+user2.txt  user3.txt
+user1@eltex-practice2-pg2-v11:/root$ rm /opt/share/user2.txt
+rm: cannot remove '/opt/share/user2.txt': Operation not permitted
+user1@eltex-practice2-pg2-v11:/root$ rm /opt/share/user3.txt
+rm: cannot remove '/opt/share/user3.txt': Operation not permitted
+user1@eltex-practice2-pg2-v11:/root$ ls /opt/share
+user2.txt  user3.txt
+user1@eltex-practice2-pg2-v11:/root$ exit
+exit
+usermod -aG sudo user1
+cat > /usr/local/bin/dmesg_user2.sh << 'EOF'
+> #!/bin/bash
+> /usr/bin/dmesg
+> EOF
+chmod 755 /usr/local/bin/dmesg_user2.sh
+chown root:root /usr/local/bin/dmesg_user2.sh
+su user1
+To run a command as administrator (user "root"), use "sudo <command>".
+See "man sudo_root" for details.
+
+user1@eltex-practice2-pg2-v11:/root$ sudo dmesg | head -2
+[sudo] password for user1: 
+[    0.000000] Linux version 6.8.0-55-generic (buildd@lcy02-amd64-095) (x86_64-linux-gnu-gcc-13 (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0, GNU ld (GNU Binutils for Ubuntu) 2.42) #57-Ubuntu SMP PREEMPT_DYNAMIC Wed Feb 12 23:42:21 UTC 2025 (Ubuntu 6.8.0-55.57-generic 6.8.12)
+[    0.000000] Command line: BOOT_IMAGE=/vmlinuz-6.8.0-55-generic root=/dev/mapper/ubuntu--vg-ubuntu--lv ro
+user1@eltex-practice2-pg2-v11:/root$ exit
+exit
+su user2
+$ /usr/local/bin/dmesg_user2.sh | head -2
+dmesg: read kernel buffer failed: Operation not permitted
+$ ls -l /usr/local/bin/dmesg_user2.sh
+-rwxr-xr-x 1 root root 27 Oct 25 12:20 /usr/local/bin/dmesg_user2.sh
+$ exit
+chage -M 10 user1
+chage -M 10 user2
+chage -M 10 user3
+echo "Прудникова Мария" >> /etc/motd
+cat /etc/motd
+Прудникова Мария
+rsync -av /etc/ /root/etc_backup/
+a/QuoVadis_Root_CA_1_G3.crt
+ssl/certs/QuoVadis_Root_CA_2.pem -> /usr/share/ca-certificates/mozilla/QuoVadis_Root_CA_2.crt
+ssl/certs/QuoVadis_Root_CA_2_G3.pem -> /usr/share/ca-certificates/mozilla/QuoVadis_Root_CA_2_G3.crt
+ssl/certs/QuoVadis_Root_CA_3.pem -> /usr/share/ca-certificates/mozilla/QuoVadis_Root_CA_3.crt
+ssl/certs/QuoVadis_Root_CA_3_G3.pem -> /usr/share/ca-certificates/mozilla/QuoVadis_Root_CA_3_G3.crt
+ssl/certs/SSL.com_EV_Root_Certification_Authority_ECC.pem -> /usr/share/ca-certificates/mozilla/SSL.com_EV_Root_Certification_Authority_ECC.crt
+ssl/certs/SSL.com_EV_Root_Certification_Authority_RSA_R2.pem -> /usr/share/ca-certificates/mozilla/SSL.com_EV_Root_Certification_Authority_RSA_R2.crt
+ssl/certs/SSL.com_Root_Certification_Authority_ECC.pem -> /usr/share/ca-certificates/mozilla/SSL.com_Root_Certification_Authority_ECC.crt
+ssl/certs/SSL.com_Root_Certification_Authority_RSA.pem -> /usr/share/ca-certificates/mozilla/SSL.com_Root_Certification_Authority_RSA.crt
+ssl/certs/SSL.com_TLS_ECC_Root_CA_2022.pem -> /usr/share/ca-certificates/mozilla/SSL.com_TLS_ECC_Root_CA_2022.crt
+ssl/certs/SSL.com_TLS_RSA_Root_CA_2022.pem -> /usr/share/ca-certificates/mozilla/SSL.com_TLS_RSA_Root_CA_2022.crt
+ssl/certs/SZAFIR_ROOT_CA2.pem -> /usr/share/ca-certificates/mozilla/SZAFIR_ROOT_CA2.crt
+ssl/certs/Sectigo_Public_Server_Authentication_Root_E46.pem -> /usr/share/ca-certificates/mozilla/Sectigo_Public_Server_Authentication_Root_E46.crt
+ssl/certs/Sectigo_Public_Server_Authentication_Root_R46.pem -> /usr/share/ca-certificates/mozilla/Sectigo_Public_Server_Authentication_Root_R46.crt
+ssl/certs/SecureSign_RootCA11.pem -> /usr/share/ca-certificates/mozilla/SecureSign_RootCA11.crt
+ssl/certs/SecureTrust_CA.pem -> /usr/share/ca-certificates/mozilla/SecureTrust_CA.crt
+ssl/certs/Secure_Global_CA.pem -> /usr/share/ca-certificates/mozilla/Secure_Global_CA.crt
+ssl/certs/Security_Communication_ECC_RootCA1.pem -> /usr/share/ca-certificates/mozilla/Security_Communication_ECC_RootCA1.crt
+ssl/certs/Security_Communication_RootCA2.pem -> /usr/share/ca-certificates/mozilla/Security_Communication_RootCA2.crt
+ssl/certs/Security_Communication_RootCA3.pem -> /usr/share/ca-certificates/mozilla/Security_Communication_RootCA3.crt
+ssl/certs/Security_Communication_Root_CA.pem -> /usr/share/ca-certificates/mozilla/Security_Communication_Root_CA.crt
+ssl/certs/Starfield_Class_2_CA.pem -> /usr/share/ca-certificates/mozilla/Starfield_Class_2_CA.crt
+ssl/certs/Starfield_Root_Certificate_Authority_-_G2.pem -> /usr/share/ca-certificates/mozilla/Starfield_Root_Certificate_Authority_-_G2.crt
+ssl/certs/Starfield_Services_Root_Certificate_Authority_-_G2.pem -> /usr/share/ca-certificates/mozilla/Starfield_Services_Root_Certificate_Authority_-_G2.crt
+ssl/certs/SwissSign_Gold_CA_-_G2.pem -> /usr/share/ca-certificates/mozilla/SwissSign_Gold_CA_-_G2.crt
+ssl/certs/SwissSign_Silver_CA_-_G2.pem -> /usr/share/ca-certificates/mozilla/SwissSign_Silver_CA_-_G2.crt
+ssl/certs/T-TeleSec_GlobalRoot_Class_2.pem -> /usr/share/ca-certificates/mozilla/T-TeleSec_GlobalRoot_Class_2.crt
+ssl/certs/T-TeleSec_GlobalRoot_Class_3.pem -> /usr/share/ca-certificates/mozilla/T-TeleSec_GlobalRoot_Class_3.crt
+ssl/certs/TUBITAK_Kamu_SM_SSL_Kok_Sertifikasi_-_Surum_1.pem -> /usr/share/ca-certificates/mozilla/TUBITAK_Kamu_SM_SSL_Kok_Sertifikasi_-_Surum_1.crt
+ssl/certs/TWCA_Global_Root_CA.pem -> /usr/share/ca-certificates/mozilla/TWCA_Global_Root_CA.crt
+ssl/certs/TWCA_Root_Certification_Authority.pem -> /usr/share/ca-certificates/mozilla/TWCA_Root_Certification_Authority.crt
+ssl/certs/TeliaSonera_Root_CA_v1.pem -> /usr/share/ca-certificates/mozilla/TeliaSonera_Root_CA_v1.crt
+ssl/certs/Telia_Root_CA_v2.pem -> /usr/share/ca-certificates/mozilla/Telia_Root_CA_v2.crt
+ssl/certs/TrustAsia_Global_Root_CA_G3.pem -> /usr/share/ca-certificates/mozilla/TrustAsia_Global_Root_CA_G3.crt
+ssl/certs/TrustAsia_Global_Root_CA_G4.pem -> /usr/share/ca-certificates/mozilla/TrustAsia_Global_Root_CA_G4.crt
+ssl/certs/Trustwave_Global_Certification_Authority.pem -> /usr/share/ca-certificates/mozilla/Trustwave_Global_Certification_Authority.crt
+ssl/certs/Trustwave_Global_ECC_P256_Certification_Authority.pem -> /usr/share/ca-certificates/mozilla/Trustwave_Global_ECC_P256_Certification_Authority.crt
+ssl/certs/Trustwave_Global_ECC_P384_Certification_Authority.pem -> /usr/share/ca-certificates/mozilla/Trustwave_Global_ECC_P384_Certification_Authority.crt
+ssl/certs/TunTrust_Root_CA.pem -> /usr/share/ca-certificates/mozilla/TunTrust_Root_CA.crt
+ssl/certs/UCA_Extended_Validation_Root.pem -> /usr/share/ca-certificates/mozilla/UCA_Extended_Validation_Root.crt
+ssl/certs/UCA_Global_G2_Root.pem -> /usr/share/ca-certificates/mozilla/UCA_Global_G2_Root.crt
+ssl/certs/USERTrust_ECC_Certification_Authority.pem -> /usr/share/ca-certificates/mozilla/USERTrust_ECC_Certification_Authority.crt
+ssl/certs/USERTrust_RSA_Certification_Authority.pem -> /usr/share/ca-certificates/mozilla/USERTrust_RSA_Certification_Authority.crt
+ssl/certs/XRamp_Global_CA_Root.pem -> /usr/share/ca-certificates/mozilla/XRamp_Global_CA_Root.crt
+ssl/certs/a3418fda.0 -> GTS_Root_R4.pem
+ssl/certs/a89d74c2.0 -> SSL.com_TLS_RSA_Root_CA_2022.pem
+ssl/certs/a94d09e5.0 -> ACCVRAIZ1.pem
+ssl/certs/aee5f10d.0 -> Entrust.net_Premium_2048_Secure_Server_CA.pem
+ssl/certs/b0e59380.0 -> GlobalSign_ECC_Root_CA_-_R4.pem
+ssl/certs/b1159c4c.0 -> DigiCert_Assured_ID_Root_CA.pem
+ssl/certs/b433981b.0 -> ANF_Secure_Server_Root_CA.pem
+ssl/certs/b66938e9.0 -> Secure_Global_CA.pem
+ssl/certs/b727005e.0 -> AffirmTrust_Premium.pem
+ssl/certs/b7a5b843.0 -> TWCA_Root_Certification_Authority.pem
+ssl/certs/b81b93f0.0 -> AC_RAIZ_FNMT-RCM_SERVIDORES_SEGUROS.pem
+ssl/certs/bf53fb88.0 -> Microsoft_RSA_Root_Certificate_Authority_2017.pem
+ssl/certs/c01eb047.0 -> UCA_Global_G2_Root.pem
+ssl/certs/c28a8a30.0 -> D-TRUST_Root_Class_3_CA_2_2009.pem
+ssl/certs/ca-certificates.crt
+ssl/certs/ca6e4ad9.0 -> ePKI_Root_Certification_Authority.pem
+ssl/certs/cbf06781.0 -> Go_Daddy_Root_Certificate_Authority_-_G2.pem
+ssl/certs/cc450945.0 -> Izenpe.com.pem
+ssl/certs/cd58d51e.0 -> Security_Communication_RootCA2.pem
+ssl/certs/cd8c0d63.0 -> AC_RAIZ_FNMT-RCM.pem
+ssl/certs/ce5e74ef.0 -> Amazon_Root_CA_1.pem
+ssl/certs/certSIGN_ROOT_CA.pem -> /usr/share/ca-certificates/mozilla/certSIGN_ROOT_CA.crt
+ssl/certs/certSIGN_Root_CA_G2.pem -> /usr/share/ca-certificates/mozilla/certSIGN_Root_CA_G2.crt
+ssl/certs/d4dae3dd.0 -> D-TRUST_Root_Class_3_CA_2_EV_2009.pem
+ssl/certs/d52c538d.0 -> DigiCert_TLS_RSA4096_Root_G5.pem
+ssl/certs/d6325660.0 -> COMODO_RSA_Certification_Authority.pem
+ssl/certs/d7e8dc79.0 -> QuoVadis_Root_CA_2.pem
+ssl/certs/d887a5bb.0 -> Trustwave_Global_ECC_P384_Certification_Authority.pem
+ssl/certs/da0cfd1d.0 -> Sectigo_Public_Server_Authentication_Root_E46.pem
+ssl/certs/dc4d6a89.0 -> GlobalSign_Root_CA_-_R6.pem
+ssl/certs/dd8e9d41.0 -> DigiCert_Global_Root_G3.pem
+ssl/certs/de6d66f3.0 -> Amazon_Root_CA_4.pem
+ssl/certs/e-Szigno_Root_CA_2017.pem -> /usr/share/ca-certificates/mozilla/e-Szigno_Root_CA_2017.crt
+ssl/certs/e113c810.0 -> Certigna.pem
+ssl/certs/e18bfb83.0 -> QuoVadis_Root_CA_3_G3.pem
+ssl/certs/e35234b1.0 -> Certum_Trusted_Root_CA.pem
+ssl/certs/e36a6752.0 -> Atos_TrustedRoot_2011.pem
+ssl/certs/e73d606e.0 -> OISTE_WISeKey_Global_Root_GB_CA.pem
+ssl/certs/e868b802.0 -> e-Szigno_Root_CA_2017.pem
+ssl/certs/e8de2f56.0 -> Buypass_Class_3_Root_CA.pem
+ssl/certs/ePKI_Root_Certification_Authority.pem -> /usr/share/ca-certificates/mozilla/ePKI_Root_Certification_Authority.crt
+ssl/certs/ecccd8db.0 -> HARICA_TLS_ECC_Root_CA_2021.pem
+ssl/certs/ed858448.0 -> vTrus_ECC_Root_CA.pem
+ssl/certs/ee64a828.0 -> Comodo_AAA_Services_root.pem
+ssl/certs/eed8c118.0 -> COMODO_ECC_Certification_Authority.pem
+ssl/certs/ef954a4e.0 -> IdenTrust_Commercial_Root_CA_1.pem
+ssl/certs/emSign_ECC_Root_CA_-_C3.pem -> /usr/share/ca-certificates/mozilla/emSign_ECC_Root_CA_-_C3.crt
+ssl/certs/emSign_ECC_Root_CA_-_G3.pem -> /usr/share/ca-certificates/mozilla/emSign_ECC_Root_CA_-_G3.crt
+ssl/certs/emSign_Root_CA_-_C1.pem -> /usr/share/ca-certificates/mozilla/emSign_Root_CA_-_C1.crt
+ssl/certs/emSign_Root_CA_-_G1.pem -> /usr/share/ca-certificates/mozilla/emSign_Root_CA_-_G1.crt
+ssl/certs/f081611a.0 -> Go_Daddy_Class_2_CA.pem
+ssl/certs/f0c70a8d.0 -> SSL.com_EV_Root_Certification_Authority_ECC.pem
+ssl/certs/f249de83.0 -> Trustwave_Global_Certification_Authority.pem
+ssl/certs/f30dd6ad.0 -> USERTrust_ECC_Certification_Authority.pem
+ssl/certs/f3377b1b.0 -> Security_Communication_Root_CA.pem
+ssl/certs/f387163d.0 -> Starfield_Class_2_CA.pem
+ssl/certs/f39fc864.0 -> SecureTrust_CA.pem
+ssl/certs/f51bb24c.0 -> Certigna_Root_CA.pem
+ssl/certs/fa5da96b.0 -> GLOBALTRUST_2020.pem
+ssl/certs/fb717492.0 -> Atos_TrustedRoot_Root_CA_ECC_TLS_2021.pem
+ssl/certs/fc5a8f99.0 -> USERTrust_RSA_Certification_Authority.pem
+ssl/certs/fd64f3fc.0 -> TunTrust_Root_CA.pem
+ssl/certs/fe8a2cd8.0 -> SZAFIR_ROOT_CA2.pem
+ssl/certs/feffd413.0 -> GlobalSign_Root_E46.pem
+ssl/certs/ff34af3f.0 -> TUBITAK_Kamu_SM_SSL_Kok_Sertifikasi_-_Surum_1.pem
+ssl/certs/vTrus_ECC_Root_CA.pem -> /usr/share/ca-certificates/mozilla/vTrus_ECC_Root_CA.crt
+ssl/certs/vTrus_Root_CA.pem -> /usr/share/ca-certificates/mozilla/vTrus_Root_CA.crt
+ssl/private/
+sudoers.d/
+sudoers.d/README
+supercat/
+supercat/spcrc-crontab
+supercat/spcrc-crontab-light
+sysctl.d/
+sysctl.d/10-bufferbloat.conf
+sysctl.d/10-console-messages.conf
+sysctl.d/10-ipv6-privacy.conf
+sysctl.d/10-kernel-hardening.conf
+sysctl.d/10-magic-sysrq.conf
+sysctl.d/10-map-count.conf
+sysctl.d/10-network-security.conf
+sysctl.d/10-ptrace.conf
+sysctl.d/10-zeropage.conf
+sysctl.d/99-sysctl.conf -> ../sysctl.conf
+sysctl.d/README.sysctl
+sysstat/
+sysstat/sysstat
+sysstat/sysstat.ioconf
+systemd/
+systemd/journald.conf
+systemd/logind.conf
+systemd/networkd.conf
+systemd/pstore.conf
+systemd/resolved.conf
+systemd/sleep.conf
+systemd/system.conf
+systemd/timesyncd.conf
+systemd/user.conf
+systemd/network/
+systemd/system-generators/
+systemd/system-generators/systemd-gpt-auto-generator -> /dev/null
+systemd/system/
+systemd/system/dbus-org.freedesktop.ModemManager1.service -> /usr/lib/systemd/system/ModemManager.service
+systemd/system/dbus-org.freedesktop.resolve1.service -> /usr/lib/systemd/system/systemd-resolved.service
+systemd/system/dbus-org.freedesktop.thermald.service -> /usr/lib/systemd/system/thermald.service
+systemd/system/dbus-org.freedesktop.timesync1.service -> /usr/lib/systemd/system/systemd-timesyncd.service
+systemd/system/iscsi.service -> /usr/lib/systemd/system/open-iscsi.service
+systemd/system/syslog.service -> /usr/lib/systemd/system/rsyslog.service
+systemd/system/vmtoolsd.service -> /usr/lib/systemd/system/open-vm-tools.service
+systemd/system/cloud-config.target.wants/
+systemd/system/cloud-config.target.wants/cloud-init-hotplugd.socket -> /usr/lib/systemd/system/cloud-init-hotplugd.socket
+systemd/system/cloud-final.service.wants/
+systemd/system/cloud-final.service.wants/snapd.seeded.service -> /usr/lib/systemd/system/snapd.seeded.service
+systemd/system/cloud-init.target.wants/
+systemd/system/cloud-init.target.wants/cloud-config.service -> /usr/lib/systemd/system/cloud-config.service
+systemd/system/cloud-init.target.wants/cloud-final.service -> /usr/lib/systemd/system/cloud-final.service
+systemd/system/cloud-init.target.wants/cloud-init-local.service -> /usr/lib/systemd/system/cloud-init-local.service
+systemd/system/cloud-init.target.wants/cloud-init.service -> /usr/lib/systemd/system/cloud-init.service
+systemd/system/display-manager.service.wants/
+systemd/system/display-manager.service.wants/gpu-manager.service -> /usr/lib/systemd/system/gpu-manager.service
+systemd/system/emergency.target.wants/
+systemd/system/emergency.target.wants/grub-initrd-fallback.service -> /usr/lib/systemd/system/grub-initrd-fallback.service
+systemd/system/final.target.wants/
+systemd/system/final.target.wants/snapd.system-shutdown.service -> /usr/lib/systemd/system/snapd.system-shutdown.service
+systemd/system/getty.target.wants/
+systemd/system/getty.target.wants/getty@tty1.service -> /usr/lib/systemd/system/getty@.service
+systemd/system/graphical.target.wants/
+systemd/system/graphical.target.wants/udisks2.service -> /usr/lib/systemd/system/udisks2.service
+systemd/system/hibernate.target.wants/
+systemd/system/hibernate.target.wants/grub-common.service -> /usr/lib/systemd/system/grub-common.service
+systemd/system/hybrid-sleep.target.wants/
+systemd/system/hybrid-sleep.target.wants/grub-common.service -> /usr/lib/systemd/system/grub-common.service
+systemd/system/mdmonitor.service.wants/
+systemd/system/mdmonitor.service.wants/mdcheck_continue.timer -> /usr/lib/systemd/system/mdcheck_continue.timer
+systemd/system/mdmonitor.service.wants/mdcheck_start.timer -> /usr/lib/systemd/system/mdcheck_start.timer
+systemd/system/mdmonitor.service.wants/mdmonitor-oneshot.timer -> /usr/lib/systemd/system/mdmonitor-oneshot.timer
+systemd/system/multi-user.target.wants/
+systemd/system/multi-user.target.wants/ModemManager.service -> /usr/lib/systemd/system/ModemManager.service
+systemd/system/multi-user.target.wants/apport.service -> /usr/lib/systemd/system/apport.service
+systemd/system/multi-user.target.wants/console-setup.service -> /usr/lib/systemd/system/console-setup.service
+systemd/system/multi-user.target.wants/cron.service -> /usr/lib/systemd/system/cron.service
+systemd/system/multi-user.target.wants/dmesg.service -> /usr/lib/systemd/system/dmesg.service
+systemd/system/multi-user.target.wants/e2scrub_reap.service -> /lib/systemd/system/e2scrub_reap.service
+systemd/system/multi-user.target.wants/grub-common.service -> /usr/lib/systemd/system/grub-common.service
+systemd/system/multi-user.target.wants/grub-initrd-fallback.service -> /usr/lib/systemd/system/grub-initrd-fallback.service
+systemd/system/multi-user.target.wants/lxd-installer.socket -> /usr/lib/systemd/system/lxd-installer.socket
+systemd/system/multi-user.target.wants/networkd-dispatcher.service -> /usr/lib/systemd/system/networkd-dispatcher.service
+systemd/system/multi-user.target.wants/open-vm-tools.service -> /usr/lib/systemd/system/open-vm-tools.service
+systemd/system/multi-user.target.wants/pollinate.service -> /usr/lib/systemd/system/pollinate.service
+systemd/system/multi-user.target.wants/remote-fs.target -> /usr/lib/systemd/system/remote-fs.target
+systemd/system/multi-user.target.wants/rsyslog.service -> /usr/lib/systemd/system/rsyslog.service
+systemd/system/multi-user.target.wants/secureboot-db.service -> /usr/lib/systemd/system/secureboot-db.service
+systemd/system/multi-user.target.wants/snapd.apparmor.service -> /usr/lib/systemd/system/snapd.apparmor.service
+systemd/system/multi-user.target.wants/snapd.autoimport.service -> /usr/lib/systemd/system/snapd.autoimport.service
+systemd/system/multi-user.target.wants/snapd.core-fixup.service -> /usr/lib/systemd/system/snapd.core-fixup.service
+systemd/system/multi-user.target.wants/snapd.recovery-chooser-trigger.service -> /usr/lib/systemd/system/snapd.recovery-chooser-trigger.service
+systemd/system/multi-user.target.wants/snapd.seeded.service -> /usr/lib/systemd/system/snapd.seeded.service
+systemd/system/multi-user.target.wants/snapd.service -> /usr/lib/systemd/system/snapd.service
+systemd/system/multi-user.target.wants/sysstat.service -> /usr/lib/systemd/system/sysstat.service
+systemd/system/multi-user.target.wants/systemd-networkd.service -> /lib/systemd/system/systemd-networkd.service
+systemd/system/multi-user.target.wants/thermald.service -> /usr/lib/systemd/system/thermald.service
+systemd/system/multi-user.target.wants/ua-reboot-cmds.service -> /usr/lib/systemd/system/ua-reboot-cmds.service
+systemd/system/multi-user.target.wants/ubuntu-advantage.service -> /usr/lib/systemd/system/ubuntu-advantage.service
+systemd/system/multi-user.target.wants/ufw.service -> /usr/lib/systemd/system/ufw.service
+systemd/system/multi-user.target.wants/unattended-upgrades.service -> /usr/lib/systemd/system/unattended-upgrades.service
+systemd/system/network-online.target.wants/
+systemd/system/network-online.target.wants/systemd-networkd-wait-online.service -> /lib/systemd/system/systemd-networkd-wait-online.service
+systemd/system/oem-config.service.wants/
+systemd/system/oem-config.service.wants/gpu-manager.service -> /usr/lib/systemd/system/gpu-manager.service
+systemd/system/open-vm-tools.service.requires/
+systemd/system/open-vm-tools.service.requires/vgauth.service -> /usr/lib/systemd/system/vgauth.service
+systemd/system/paths.target.wants/
+systemd/system/paths.target.wants/apport-autoreport.path -> /usr/lib/systemd/system/apport-autoreport.path
+systemd/system/paths.target.wants/tpm-udev.path -> /usr/lib/systemd/system/tpm-udev.path
+systemd/system/rescue.target.wants/
+systemd/system/rescue.target.wants/grub-initrd-fallback.service -> /usr/lib/systemd/system/grub-initrd-fallback.service
+systemd/system/sleep.target.wants/
+systemd/system/sleep.target.wants/grub-initrd-fallback.service -> /usr/lib/systemd/system/grub-initrd-fallback.service
+systemd/system/sockets.target.wants/
+systemd/system/sockets.target.wants/apport-forward.socket -> /usr/lib/systemd/system/apport-forward.socket
+systemd/system/sockets.target.wants/dm-event.socket -> /usr/lib/systemd/system/dm-event.socket
+systemd/system/sockets.target.wants/iscsid.socket -> /usr/lib/systemd/system/iscsid.socket
+systemd/system/sockets.target.wants/multipathd.socket -> /usr/lib/systemd/system/multipathd.socket
+systemd/system/sockets.target.wants/snapd.socket -> /usr/lib/systemd/system/snapd.socket
+systemd/system/sockets.target.wants/ssh.socket -> /usr/lib/systemd/system/ssh.socket
+systemd/system/sockets.target.wants/systemd-networkd.socket -> /lib/systemd/system/systemd-networkd.socket
+systemd/system/sockets.target.wants/uuidd.socket -> /usr/lib/systemd/system/uuidd.socket
+systemd/system/ssh.service.requires/
+systemd/system/ssh.service.requires/ssh.socket -> /usr/lib/systemd/system/ssh.socket
+systemd/system/suspend-then-hibernate.target.wants/
+systemd/system/suspend-then-hibernate.target.wants/grub-common.service -> /usr/lib/systemd/system/grub-common.service
+systemd/system/suspend.target.wants/
+systemd/system/suspend.target.wants/grub-common.service -> /usr/lib/systemd/system/grub-common.service
+systemd/system/sysinit.target.wants/
+systemd/system/sysinit.target.wants/apparmor.service -> /usr/lib/systemd/system/apparmor.service
+systemd/system/sysinit.target.wants/blk-availability.service -> /usr/lib/systemd/system/blk-availability.service
+systemd/system/sysinit.target.wants/finalrd.service -> /usr/lib/systemd/system/finalrd.service
+systemd/system/sysinit.target.wants/keyboard-setup.service -> /usr/lib/systemd/system/keyboard-setup.service
+systemd/system/sysinit.target.wants/lvm2-lvmpolld.socket -> /usr/lib/systemd/system/lvm2-lvmpolld.socket
+systemd/system/sysinit.target.wants/lvm2-monitor.service -> /usr/lib/systemd/system/lvm2-monitor.service
+systemd/system/sysinit.target.wants/multipathd.service -> /usr/lib/systemd/system/multipathd.service
+systemd/system/sysinit.target.wants/open-iscsi.service -> /usr/lib/systemd/system/open-iscsi.service
+systemd/system/sysinit.target.wants/setvtrgb.service -> /usr/lib/systemd/system/setvtrgb.service
+systemd/system/sysinit.target.wants/systemd-pstore.service -> /usr/lib/systemd/system/systemd-pstore.service
+systemd/system/sysinit.target.wants/systemd-resolved.service -> /usr/lib/systemd/system/systemd-resolved.service
+systemd/system/sysinit.target.wants/systemd-timesyncd.service -> /usr/lib/systemd/system/systemd-timesyncd.service
+systemd/system/sysstat.service.wants/
+systemd/system/sysstat.service.wants/sysstat-collect.timer -> /usr/lib/systemd/system/sysstat-collect.timer
+systemd/system/sysstat.service.wants/sysstat-summary.timer -> /usr/lib/systemd/system/sysstat-summary.timer
+systemd/system/timers.target.wants/
+systemd/system/timers.target.wants/apport-autoreport.timer -> /usr/lib/systemd/system/apport-autoreport.timer
+systemd/system/timers.target.wants/apt-daily-upgrade.timer -> /lib/systemd/system/apt-daily-upgrade.timer
+systemd/system/timers.target.wants/apt-daily.timer -> /lib/systemd/system/apt-daily.timer
+systemd/system/timers.target.wants/dpkg-db-backup.timer -> /lib/systemd/system/dpkg-db-backup.timer
+systemd/system/timers.target.wants/e2scrub_all.timer -> /lib/systemd/system/e2scrub_all.timer
+systemd/system/timers.target.wants/fstrim.timer -> /lib/systemd/system/fstrim.timer
+systemd/system/timers.target.wants/fwupd-refresh.timer -> /usr/lib/systemd/system/fwupd-refresh.timer
+systemd/system/timers.target.wants/logrotate.timer -> /usr/lib/systemd/system/logrotate.timer
+systemd/system/timers.target.wants/man-db.timer -> /usr/lib/systemd/system/man-db.timer
+systemd/system/timers.target.wants/motd-news.timer -> /lib/systemd/system/motd-news.timer
+systemd/system/timers.target.wants/snapd.snap-repair.timer -> /usr/lib/systemd/system/snapd.snap-repair.timer
+systemd/system/timers.target.wants/ua-timer.timer -> /usr/lib/systemd/system/ua-timer.timer
+systemd/system/timers.target.wants/update-notifier-download.timer -> /usr/lib/systemd/system/update-notifier-download.timer
+systemd/system/timers.target.wants/update-notifier-motd.timer -> /usr/lib/systemd/system/update-notifier-motd.timer
+systemd/user/
+systemd/user/sockets.target.wants/
+systemd/user/sockets.target.wants/dirmngr.socket -> /usr/lib/systemd/user/dirmngr.socket
+systemd/user/sockets.target.wants/gpg-agent-browser.socket -> /usr/lib/systemd/user/gpg-agent-browser.socket
+systemd/user/sockets.target.wants/gpg-agent-extra.socket -> /usr/lib/systemd/user/gpg-agent-extra.socket
+systemd/user/sockets.target.wants/gpg-agent-ssh.socket -> /usr/lib/systemd/user/gpg-agent-ssh.socket
+systemd/user/sockets.target.wants/gpg-agent.socket -> /usr/lib/systemd/user/gpg-agent.socket
+systemd/user/sockets.target.wants/keyboxd.socket -> /usr/lib/systemd/user/keyboxd.socket
+systemd/user/sockets.target.wants/pk-debconf-helper.socket -> /usr/lib/systemd/user/pk-debconf-helper.socket
+systemd/user/timers.target.wants/
+systemd/user/timers.target.wants/launchpadlib-cache-clean.timer -> /usr/lib/systemd/user/launchpadlib-cache-clean.timer
+terminfo/
+terminfo/README
+thermald/
+thermald/thermal-cpu-cdev-order.xml
+tmpfiles.d/
+tmpfiles.d/screen-cleanup.conf
+ubuntu-advantage/
+ubuntu-advantage/uaclient.conf
+udev/
+udev/iocost.conf
+udev/udev.conf
+udev/hwdb.d/
+udev/rules.d/
+udev/rules.d/ubuntu--vg-ubuntu--lv.rules
+udisks2/
+udisks2/mount_options.conf.example
+udisks2/udisks2.conf
+ufw/
+ufw/after.init
+ufw/after.rules
+ufw/after6.rules
+ufw/before.init
+ufw/before.rules
+ufw/before6.rules
+ufw/sysctl.conf
+ufw/ufw.conf
+ufw/user.rules
+ufw/user6.rules
+ufw/applications.d/
+ufw/applications.d/openssh-server
+update-manager/
+update-manager/meta-release
+update-manager/release-upgrades
+update-manager/release-upgrades.d/
+update-manager/release-upgrades.d/ubuntu-advantage-upgrades.cfg
+update-motd.d/
+update-motd.d/00-header
+update-motd.d/10-help-text
+update-motd.d/50-landscape-sysinfo -> /usr/share/landscape/landscape-sysinfo.wrapper
+update-motd.d/50-motd-news
+update-motd.d/85-fwupd
+update-motd.d/90-updates-available
+update-motd.d/91-contract-ua-esm-status
+update-motd.d/91-release-upgrade
+update-motd.d/92-unattended-upgrades
+update-motd.d/95-hwe-eol
+update-motd.d/97-overlayroot
+update-motd.d/98-fsck-at-reboot
+update-motd.d/98-reboot-required
+update-notifier/
+usb_modeswitch.d/
+vim/
+vim/vimrc
+vim/vimrc.tiny
+vmware-tools/
+vmware-tools/poweroff-vm-default
+vmware-tools/poweron-vm-default
+vmware-tools/resume-vm-default
+vmware-tools/statechange.subr
+vmware-tools/suspend-vm-default
+vmware-tools/tools.conf
+vmware-tools/tools.conf.example
+vmware-tools/vgauth.conf
+vmware-tools/scripts/
+vmware-tools/scripts/vmware/
+vmware-tools/scripts/vmware/network
+vmware-tools/vgauth/
+vmware-tools/vgauth/schemas/
+vmware-tools/vgauth/schemas/XMLSchema-hasFacetAndProperty.xsd
+vmware-tools/vgauth/schemas/XMLSchema-instance.xsd
+vmware-tools/vgauth/schemas/XMLSchema.dtd
+vmware-tools/vgauth/schemas/XMLSchema.xsd
+vmware-tools/vgauth/schemas/catalog.xml
+vmware-tools/vgauth/schemas/datatypes.dtd
+vmware-tools/vgauth/schemas/saml-schema-assertion-2.0.xsd
+vmware-tools/vgauth/schemas/xenc-schema.xsd
+vmware-tools/vgauth/schemas/xml.xsd
+vmware-tools/vgauth/schemas/xmldsig-core-schema.xsd
+xdg/
+xdg/user-dirs.conf
+xdg/user-dirs.defaults
+xdg/autostart/
+xdg/autostart/snap-userd-autostart.desktop
+xdg/autostart/xdg-user-dirs.desktop
+xdg/systemd/
+xdg/systemd/user -> ../../systemd/user
+xml/
+xml/catalog
+xml/catalog.old
+xml/polkitd.xml
+xml/polkitd.xml.old
+xml/xml-core.xml
+xml/xml-core.xml.old
+
+sent 2,450,849 bytes  received 19,395 bytes  1,646,829.33 bytes/sec
+total size is 2,366,453  speedup is 0.96
+tar -czf /root/etc_backup.tar.gz -C /root etc_backup
+apt-get install -y bzip2
+apt install 7zip
+tar -cjf /root/etc_backup.tar.bz2 -C /root etc_backup
+7z a /root/etc_backup.7z /root/etc_backup/
+ls -lh /root/etc_backup.*
+-rw-r--r-- 1 root root 4.5M Oct 25 15:34 /root/etc_backup.7z
+-rw-r--r-- 1 root root 550K Oct 25 15:31 /root/etc_backup.tar.bz2
+-rw-r--r-- 1 root root 583K Oct 25 15:31 /root/etc_backup.tar.gz
+nano /etc/motd
+cat /etc/motd
+Прудникова Мария
+25.10.2025 22:38
+rsync -av /etc/ /root/etc_backup/
+tar -czf /root/motd_backup.tar.gz -C /root etc_backup/motd
+root@eltex-practice2-pg2-v11:~# tar -tjf /root/etc_backup.tar.bz2 | sed 's|etc_backup/||' | sort | head -10
+
+adduser.conf
+alternatives/
+alternatives/arptables
+alternatives/arptables-restore
+alternatives/arptables-save
+alternatives/awk
+alternatives/awk.1.gz
+alternatives/builtins.7.gz
+alternatives/ebtables
+root@eltex-practice2-pg2-v11:~# ls /root/etc_backup | sort | head -10
+adduser.conf
+alternatives
+apparmor
+apparmor.d
+apport
+apt
+bash.bashrc
+bash_completion
+bash_completion.d
+bindresvport.blacklist
+root@eltex-practice2-pg2-v11:~# mkdir -p /root/etc_backup_gzip
+root@eltex-practice2-pg2-v11:~# tar -xzf /root/etc_backup.tar.gz -C /root/etc_backup_gzip
+root@eltex-practice2-pg2-v11:~# mkdir -p /root/etc_backup_7zip
+root@eltex-practice2-pg2-v11:~# 7z x /root/etc_backup.7z -o/root/etc_backup_7zip
+
+7-Zip 23.01 (x64) : Copyright (c) 1999-2023 Igor Pavlov : 2023-06-20
+ 64-bit locale=en_US.UTF-8 Threads:2 OPEN_MAX:1024
+
+Scanning the drive for archives:
+1 file, 4678298 bytes (4569 KiB)
+
+Extracting archive: /root/etc_backup.7z
+--
+Path = /root/etc_backup.7z
+Type = 7z
+Physical Size = 4678298
+Headers Size = 20820
+Method = LZMA2:24 BCJ
+Solid = +
+Blocks = 2
+
+Everything is Ok
+
+Folders: 244
+Files: 1507
+Size:       38702381
+Compressed: 4678298
+
+diff /root/etc_backup_gzip/etc_backup/motd /root/etc_backup_7zip/etc_backup/motd
