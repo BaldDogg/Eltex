@@ -1,0 +1,61 @@
+touch eltex-pg2-v11_part.log  
+screen -S "$(whoami)_part2" 
+ls<tab><tab> 
+ls lscpu lsirq lsmod lsusb lsattr lsfd lslocks lsns lsblk lsinitramfs 
+lslogins lsof
+lsb_release  lsipc        lsmem        lspci
+echo $HIST<tab><tab>
+echo $HIST $HISTCMD $HISTFILE 
+$HISTSIZE
+$HISTCONTROL     $HISTFILESIZE    $HISTTIMEFORMAT
+echo $HISTFILESIZE
+2000
+ls -d .*
+.bash_history  .bashrc  .lesshst  .log       .profile  .viminfo
+.bash_logout   .config  .local    ..log.swp  .ssh      .Xauthority
+HISTTIMEFORMAT="%d.%m.%Y %T "
+date
+Ср 22 окт 2025 19:58:39 +07
+history 5 
+137 22.10.2025 19:11:47 echo $HISTFILESIZE 
+138 22.10.2025 19:55:58 ls -d .* 
+139 22.10.2025 19:58:09 HISTTIMEFORMAT="%d.%m.%Y %T "
+140 22.10.2025 19:58:39 date
+141  22.10.2025 19:59:10 history 5
+PROMPT_COMMAND='history -a'
+source ~/.bashrc
+history 3
+142 2025-10-22 20:00:56 PROMPT_COMMAND='history -a' 
+143 2025-10-22 20:32:38 source ~/.bashrc
+144  2025-10-22 20:46:37 history 3
+DATE=$(date +%d.%m.%Y)
+echo $DATE
+22.10.2025
+TIME=$(date +%T)
+echo $TIME
+20:55:57
+DATE_TIME="$DATE $TIME"
+echo $DATE_TIME
+22.10.2025 20:55:57
+find /bin /sbin -type f -regex '.*[0-9].*'
+PS1='\u@\h-(date +%H:%M)> '
+eltex-pg2-v11@eltex-2025-autumn-21:16
+export PS1
+eltex-pg2-v11@eltex-2025-autumn-21:16 
+mkdir -p ~/$(date +%Y)-{01,02,03,04,05,06,07,08,09,10,11,12}
+ls -a
+.
+..
+'$USER_part.log'
+ 2025-01 
+ 2025-02
+ 2025-03
+ 2025-04
+ 2025-05
+ 2025-06
+ 2025-07
+ 2025-08
+ 2025-09
+ 2025-10
+ 2025-11
+ 2025-12
